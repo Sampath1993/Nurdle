@@ -1,38 +1,28 @@
-.App {
-  text-align: center;
+body {
+  background-color: black; /* Set the background color to black */
+  color: goldenrod; /* Set the text color to goldenrod */
+  font-family: Arial, sans-serif; /* Optional: Set the font family */
+  text-align: center; /* Center text */
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  text-align: center; /* Center the heading */
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+p {
+  text-align: center; /* Center paragraphs */
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+input[type="number"] {
+  width: 100px; /* Set width of input field */
+  padding: 5px; /* Add padding */
+  margin: 0 auto; /* Center horizontally */
 }
-
-.App-link {
-  color: #61dafb;
+button {
+  padding: 8px 16px; /* Add padding */
+  background-color: #4CAF50; /* Green */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  cursor: pointer; /* Add pointer cursor */
+  margin-top: 10px; /* Optional: Add margin from the input field */
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button:hover {
+  background-color: #45a049; /* Darker green on hover */
 }
