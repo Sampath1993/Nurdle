@@ -1,5 +1,5 @@
 // App.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
@@ -23,6 +23,12 @@ function App() {
     }
   }
 
+  useEffect(() => {
+    if (guess.length === 4) {
+      checkGuess();
+    }
+  }, [guess]);
+
   function checkGuess() {
     if (!isValidGuess(guess)) {
       setMessage('Please enter a valid 4-digit number.');
@@ -41,6 +47,7 @@ function App() {
       const feedback = provideFeedback(guess);
       setMessage(`Incorrect guess. ${feedback} Attempts left: ${attemptsLeft - 1}.`);
     }
+    setGuess('');
   }
 
   function isValidGuess(guess) {
@@ -66,16 +73,28 @@ function App() {
     document.getElementsByTagName('button')[0].disabled = true;
   }
 
+  function handleInputChange(e) {
+    const value = e.target.value;
+    if (value.length <= 4 && /^\d*$/.test(value)) {
+      setGuess(value);
+    }
+  }
+
   return (
     <div className="App">
       <h1>Number Wordle</h1>
       <p>Guess a 4-digit number:</p>
-      <input
-        type="number"
-        id="guessInput"
-        value={guess}
-        onChange={(e) => setGuess(e.target.value)}
-      />
+      <div>
+        {[1, 2, 3, 4].map((index) => (
+          <input
+            key={index}
+            type="text"
+            maxLength="1"
+            value={guess[index - 1] || ''}
+            onChange={handleInputChange}
+          />
+        ))}
+      </div>
       <button onClick={checkGuess}>Submit Guess</button>
       <p id="message">{message}</p>
     </div>
