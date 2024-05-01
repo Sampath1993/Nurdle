@@ -26,3 +26,46 @@ button {
 button:hover {
   background-color: #45a049; /* Darker green on hover */
 }
+/* App.css */
+.App {
+  text-align: center;
+  padding: 20px;
+}
+
+.guess-container {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  margin: 0 auto;
+}
+
+.guess-input {
+  width: 40px;
+  height: 60px; /* Adjust the height for rectangular shape */
+  border: 2px solid goldenrod;
+  background-color: transparent;
+  color: goldenrod;
+  font-size: 1.5em;
+  text-align: center;
+  margin: 0 5px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#message {
+  margin-top: 20px;
+  font-size: 1.2em;
+}
