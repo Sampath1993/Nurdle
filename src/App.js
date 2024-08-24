@@ -4,6 +4,7 @@ import './App.css';
 
 function App() {
   const [guess, setGuess] = useState(['', '', '', '']);
+  const [guessHistory, setGuessHistory] = useState([]);
   const [message, setMessage] = useState('');
   const [attemptsLeft, setAttemptsLeft] = useState(6);
   const [targetNumber] = useState(generateTargetNumber());
@@ -37,9 +38,13 @@ function App() {
       setMessage('Please enter a valid 4-digit number.');
       return;
     }
-
+  
     setAttemptsLeft(attemptsLeft - 1);
-
+  
+    const feedback = provideFeedback(guessString);
+  
+    setGuessHistory([...guessHistory, { guess: guessString, feedback }]);
+  
     if (guessString === targetNumber.join('')) {
       setMessage(`Congratulations! You guessed the correct number: ${guessString}.`);
       disableInputAndButton();
@@ -47,12 +52,13 @@ function App() {
       setMessage(`Sorry, you're out of attempts. The correct number was: ${targetNumber.join('')}.`);
       disableInputAndButton();
     } else {
-      const feedback = provideFeedback(guessString);
       setMessage(`Incorrect guess. ${feedback} Attempts left: ${attemptsLeft - 1}.`);
     }
+  
     setGuess(['', '', '', '']);
     inputsRef.current[0].focus();
   }
+  
 
   function isValidGuess(guess) {
     return /^\d{4}$/.test(guess);
@@ -61,7 +67,7 @@ function App() {
   function provideFeedback(guessString) {
     let feedback = '';
     for (let i = 0; i < guessString.length; i++) {
-      if (guessString[i] === targetNumber[i]) {
+      if (parseInt(guessString[i]) === targetNumber[i]) {
         feedback += '🟩'; // Correct digit in correct position
       } else if (targetNumber.includes(parseInt(guessString[i]))) {
         feedback += '🟨'; // Correct digit in wrong position
@@ -115,6 +121,13 @@ function App() {
       </div>
       <button onClick={checkGuess}>Submit Guess</button>
       <p id="message">{message}</p>
+    <div className="guess-history">
+      {guessHistory.map((entry, index) => (
+        <div key={index} className="guess-entry">
+          <span>{entry.guess}</span> - <span>{entry.feedback}</span>
+        </div>
+      ))}
+    </div>
     </div>
   );
 }
