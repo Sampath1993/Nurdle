@@ -1,4 +1,3 @@
-// App.js
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
@@ -29,7 +28,7 @@ function App() {
     if (guess.every(digit => digit !== '')) {
       checkGuess();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [guess]);
 
   function checkGuess() {
@@ -38,13 +37,11 @@ function App() {
       setMessage('Please enter a valid 4-digit number.');
       return;
     }
-  
+
     setAttemptsLeft(attemptsLeft - 1);
-  
     const feedback = provideFeedback(guessString);
-  
     setGuessHistory([...guessHistory, { guess: guessString, feedback }]);
-  
+
     if (guessString === targetNumber.join('')) {
       setMessage(`Congratulations! You guessed the correct number: ${guessString}.`);
       disableInputAndButton();
@@ -52,27 +49,26 @@ function App() {
       setMessage(`Sorry, you're out of attempts. The correct number was: ${targetNumber.join('')}.`);
       disableInputAndButton();
     } else {
-      setMessage(`Incorrect guess. ${feedback} Attempts left: ${attemptsLeft - 1}.`);
+      setMessage(`Incorrect guess. Attempts left: ${attemptsLeft - 1}.`);
     }
-  
+
     setGuess(['', '', '', '']);
     inputsRef.current[0].focus();
   }
-  
 
   function isValidGuess(guess) {
     return /^\d{4}$/.test(guess);
   }
 
   function provideFeedback(guessString) {
-    let feedback = '';
+    let feedback = [];
     for (let i = 0; i < guessString.length; i++) {
       if (parseInt(guessString[i]) === targetNumber[i]) {
-        feedback += '🟩'; // Correct digit in correct position
+        feedback.push('green'); // Correct digit in correct position
       } else if (targetNumber.includes(parseInt(guessString[i]))) {
-        feedback += '🟨'; // Correct digit in wrong position
+        feedback.push('yellow'); // Correct digit in wrong position
       } else {
-        feedback += '🟥'; // Incorrect digit
+        feedback.push('red'); // Incorrect digit
       }
     }
     return feedback;
@@ -107,27 +103,39 @@ function App() {
       <h1>Number Wordle</h1>
       <p>Guess a 4-digit number:</p>
       <div className="guess-container">
-        {guess.map((digit, index) => (
-          <input
-            key={index}
-            type="text"
-            maxLength="1"
-            className="guess-input"
-            value={digit}
-            onChange={(e) => handleInputChange(index, e)}
-            ref={(input) => inputsRef.current[index] = input}
-          />
+
+      <div className="guess-grid">
+        {guessHistory.map((entry, rowIndex) => (
+          <div key={rowIndex} className="guess-row">
+            {entry.feedback.map((color, colIndex) => (
+              <div
+                key={colIndex}
+                className={`guess-cell ${color}`}
+              >
+              </div>
+            ))}
+          </div>
         ))}
+
+        {/* Current guess */}
+        <div className="guess-row">
+          {guess.map((digit, index) => (
+            <input
+              key={index}
+              type="text"
+              maxLength="1"
+              className="guess-input"
+              value={digit}
+              onChange={(e) => handleInputChange(index, e)}
+              ref={(input) => inputsRef.current[index] = input}
+            />
+          ))}
+        </div>
       </div>
+      </div>
+
       <button onClick={checkGuess}>Submit Guess</button>
       <p id="message">{message}</p>
-    <div className="guess-history">
-      {guessHistory.map((entry, index) => (
-        <div key={index} className="guess-entry">
-          <span>{entry.guess}</span> - <span>{entry.feedback}</span>
-        </div>
-      ))}
-    </div>
     </div>
   );
 }
