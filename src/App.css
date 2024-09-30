@@ -87,7 +87,13 @@ button:hover {
 .guess-cell {
   width: 40px;
   height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: white;
   border: 1px solid #ccc;
+  font-weight: bold;
 }
 
 .guess-cell.green {
@@ -107,4 +113,89 @@ button:hover {
   height: 40px;
   text-align: center;
   font-size: 24px;
+}
+.numpad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  justify-content: center;
+  margin: 20px auto;
+  max-width: 245px; /* Ensures it’s not taking too much space */
+}
+
+/* Make buttons larger, nicer */
+.numpad-button {
+  padding: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  background-color: #FFD700;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+/* Hover and focus effect to look fancy */
+.numpad-button:hover,
+.numpad-button:focus {
+  background-color: #080000;
+}
+
+/* Enter button deserves special attention */
+.enter-button { /* Takes full width for extra drama */
+  background-color: #4caf50; /* Make it green for success */
+  color: white;
+}
+.backspace-button { /* Takes full width for extra drama */
+  background-color: #9d0707; /* Make it green for success */
+  color: white;
+}
+
+.enter-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+/* Popup styles */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 80%;
+  max-width: 400px;
+}
+
+.popup-content h2 {
+  margin-bottom: 10px;
+}
+
+.popup-content p {
+  margin-bottom: 20px;
+}
+
+.popup-content button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.popup-content button:hover {
+  background-color: #45a049;
 }
