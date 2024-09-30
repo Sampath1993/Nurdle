@@ -12,13 +12,29 @@ function App() {
   const inputsRef = useRef([]);
 
   const mathConcepts = [
-    "Pythagorean Theorem: a² + b² = c²",
-    "Euler's Formula: e^(iπ) + 1 = 0",
-    "Area of a Circle: πr²",
-    "Fibonacci Sequence: 0, 1, 1, 2, 3, 5, 8...",
-    "Quadratic Formula: (-b ± √(b²-4ac)) / 2a",
-    "Prime Numbers: 2, 3, 5, 7, 11, 13...",
-    "Golden Ratio: φ = (1 + √5) / 2"
+    "Natural numbers are 1,2,3,4,5,..",
+    "Whole numbers are 0,1,2,3,4,5..",
+    "Integers are .....-3,-2,-1,0,1,2,3,..",
+    "Rational numbers are p/q where p and q are integers and q is not equal to zero.",
+    "A Prime number is natural number greater than 1 that is not a product of two smaller natural numbers.",
+    "Summation means Addition and Product means Multiplication.",
+    "For any two integers, the sum and difference is also an integer. If a and b are integers than a+b and a-b is also an integer.",
+    "a+b = b+a but a-b is not equal to b-a.  Addition is commutative but subtraction is not.",
+    "Addition is Associative for integers. (a+b) + c  = a+(b+c)",
+    "Zero is an Additive Identity for any integers. a+0 =a",
+    "Any multiplication of a positive and another positive integer, the product is also positive. +a x +b = +ab",
+    "Any multiplication of a positive and another negative integer, the product is also negative. +a x -b = -ab or -b x +a = -ba",
+    "Any multiplication of a negative and another negative integer, the product is positive. -a x -b = +ab",
+    "The product of two integers will always be an integer. a x b is an integer for all integers a x b",
+    "Multiplication is commutative for all integers. a x b = b x a",
+    "The product of an integer and zero is always zero. a x 0 = 0",
+    "The product of an integer and one is always the integer itself. a x 1 = a",
+    "Integers are having the associative property for multiplication. a x (b x c) = (a x b) x c",
+    "The distributivity of multiplication over addition or subtraction is always true for all integers. a x (b +/- c) = a x b +/- a x c",
+    "For all integers, Addition, Subtraction and Multiplication will always result in an integer but not for Division.",
+    "Any integer divided by one, will always result in the integer itself.",
+    "For all integers, Multiplication is nothing but repetitive Addition.",
+    "Prime numbers (greater than 3) should satisfy the equation 6n + 1 or 6n - 1 where n is an natural number."
   ];
 
   function generateTargetNumber() {
