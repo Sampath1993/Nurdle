@@ -199,3 +199,36 @@ button:hover {
 .popup-content button:hover {
   background-color: #45a049;
 }
+
+.game-container {
+  margin-top: 20px;
+}
+
+input[type="text"] {
+  padding: 8px;
+  font-size: 16px;
+  margin: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.message {
+  font-size: 18px;
+  color: green;
+  margin-bottom: 20px;
+}
+
+.restart-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.restart-button:hover {
+  background-color: #45a049;
+}
