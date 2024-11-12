@@ -11,6 +11,21 @@ function App() {
   const [mathConcept, setMathConcept] = useState('');
   const inputsRef = useRef([]);
 
+  const [activeTab, setActiveTab] = useState("Nurdle"); // Default tab
+
+  const renderGameComponent = () => {
+    switch (activeTab) {
+      case "Nurdle":
+        return <NurdleGame />;
+      case "Math Puzzle":
+        return <MathPuzzleGame />;
+      case "Word Guess":
+        return <WordGuessGame />;
+      default:
+        return <NurdleGame />;
+    }
+  };
+
   const mathConcepts = [
     "Natural numbers are 1,2,3,4,5,..",
     "Whole numbers are 0,1,2,3,4,5..",
@@ -154,74 +169,100 @@ function handleClosePopup() {
   setShowPopup(false);
   // You can redirect or refresh here if necessary
 }
-  
+
+function NurdleGame() {
+  return <div>
+    <h1>Number Wordle</h1>
+  <p>Guess a 4-digit number:</p>
+
+  <div className="guess-grid">
+    {guessHistory.map((entry, rowIndex) => (
+      <div key={rowIndex} className="guess-row">
+        {entry.feedback.map((item, colIndex) => (
+          <div key={colIndex} className={`guess-cell ${item.color}`}>
+            {item.digit}
+          </div>
+        ))}
+      </div>
+    ))}
+
+    {/* Current guess */}
+    <div className="guess-row">
+      {guess.map((digit, index) => (
+        <input
+          key={index}
+          type="text"
+          maxLength="1"
+          className="guess-input"
+          value={digit}
+          onChange={(e) => handleInputChange(index, e)}
+          onKeyDown={(e) => handleKeyDown(index, e)}
+          ref={(input) => (inputsRef.current[index] = input)}
+        />
+      ))}
+    </div>
+  </div>
+
+  {/* Keypad */}
+  <div className="numpad">
+    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+      <button
+        key={num}
+        className="numpad-button"
+        onClick={() => handleKeypadClick(num.toString())}
+      >
+        {num}
+      </button>
+    ))}
+    <button className="numpad-button backspace-button" onClick={handleBackspaceClick}>
+      ←
+    </button>
+    <button className="numpad-button" onClick={() => handleKeypadClick("0")}>
+      0
+    </button>
+    <button className="numpad-button enter-button" onClick={checkGuess}>
+    ↵ 
+    </button>
+          {/* Math Concept Popup */}
+          {showPopup && (
+      <div className="popup">
+        <div className="popup-content">
+          <h2>Math Concept</h2>
+          <p>{mathConcept}</p>
+          <button onClick={handleClosePopup}>Close</button>
+        </div>
+      </div>
+    )}
+  </div>
+
+  <p id="message">{message}</p>
+  </div>;
+}
+
+function MathPuzzleGame() {
+  // Placeholder for a new math puzzle game
+  return <div>Math Puzzle Game (similar logic to Nurdle, but customized)</div>;
+}
+
+function WordGuessGame() {
+  // Placeholder for a Word Guess game
+  return <div>Word Guess Game</div>;
+}
 
 return (
   <div className="App">
-    <h1>Number Wordle</h1>
-    <p>Guess a 4-digit number:</p>
-
-    <div className="guess-grid">
-      {guessHistory.map((entry, rowIndex) => (
-        <div key={rowIndex} className="guess-row">
-          {entry.feedback.map((item, colIndex) => (
-            <div key={colIndex} className={`guess-cell ${item.color}`}>
-              {item.digit}
-            </div>
-          ))}
-        </div>
-      ))}
-
-      {/* Current guess */}
-      <div className="guess-row">
-        {guess.map((digit, index) => (
-          <input
-            key={index}
-            type="text"
-            maxLength="1"
-            className="guess-input"
-            value={digit}
-            onChange={(e) => handleInputChange(index, e)}
-            onKeyDown={(e) => handleKeyDown(index, e)}
-            ref={(input) => (inputsRef.current[index] = input)}
-          />
-        ))}
+      {/* Tabs Navigation */}
+      <div className="tabs">
+        <button onClick={() => setActiveTab("Nurdle")} className={activeTab === "Nurdle" ? "active" : ""}>Nurdle</button>
+        <button onClick={() => setActiveTab("Math Puzzle")} className={activeTab === "Math Puzzle" ? "active" : ""}>Math Puzzle</button>
+        <button onClick={() => setActiveTab("Word Guess")} className={activeTab === "Word Guess" ? "active" : ""}>Word Guess</button>
       </div>
-    </div>
 
-    {/* Keypad */}
-    <div className="numpad">
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-        <button
-          key={num}
-          className="numpad-button"
-          onClick={() => handleKeypadClick(num.toString())}
-        >
-          {num}
-        </button>
-      ))}
-      <button className="numpad-button backspace-button" onClick={handleBackspaceClick}>
-        ←
-      </button>
-      <button className="numpad-button" onClick={() => handleKeypadClick("0")}>
-        0
-      </button>
-      <button className="numpad-button enter-button" onClick={checkGuess}>
-      ↵ 
-      </button>
-            {/* Math Concept Popup */}
-            {showPopup && (
-        <div className="popup">
-          <div className="popup-content">
-            <h2>Math Concept</h2>
-            <p>{mathConcept}</p>
-            <button onClick={handleClosePopup}>Close</button>
-          </div>
-        </div>
-      )}
-    </div>
-
-    <p id="message">{message}</p>
+      {/* Render the selected game */}
+      <div className="game-container">
+        {renderGameComponent()}
+      </div>
+    
   </div>
 );
 }
